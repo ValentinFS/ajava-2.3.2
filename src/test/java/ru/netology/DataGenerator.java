@@ -5,7 +5,6 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
 
 import java.util.Locale;
 
@@ -23,7 +22,6 @@ public class DataGenerator {
 
     public static Faker faker = new Faker(new Locale("en"));
 
-    @BeforeAll
     static void setUpAll(RegData user) {
         given() // "дано"
                 .spec(requestSpec) // указываем, какую спецификацию используем
