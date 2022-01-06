@@ -22,7 +22,7 @@ public class DataGenerator {
 
     public static Faker faker = new Faker(new Locale("en"));
 
-    static void setUpAll(RegData user) {
+    private static void sendRequest(RegData user) {
         given() // "дано"
                 .spec(requestSpec) // указываем, какую спецификацию используем
                 .body(user) // передаём в теле объект, который будет преобразован в JSON
@@ -32,35 +32,47 @@ public class DataGenerator {
                 .statusCode(200); // код 200 OK
     }
 
-    public RegData setActiveUser() {
-        RegData activeUser = new RegData(faker.name().username(), faker.internet().password(), "active");
-        setUpAll(activeUser);
-        return activeUser;
+    public static String generateRandomLogin() {
+        return faker.name().firstName().toLowerCase();
     }
 
-    public RegData setBlockedUser() {
-        RegData blockedUser = new RegData(faker.name().username(), faker.internet().password(), "blocked");
-        setUpAll(blockedUser);
-        return blockedUser;
-    }
-
-    public RegData setEmptyUser() {
-        RegData emptyUser = new RegData("", faker.internet().password(), "active");
-        setUpAll(emptyUser);
-        return emptyUser;
+    public static String generateRandomPassword() {
+        return faker.internet().password().toLowerCase();
     }
 
 
-    public RegData setNotValidLogin() {
-        RegData notValidLogin = new RegData(faker.name().firstName().toLowerCase(), faker.internet().password(), "active");
-        setUpAll(notValidLogin);
-        return notValidLogin;
+    public static RegData generateUser(String status) {
+        RegData user = new RegData(generateRandomLogin(), generateRandomPassword(), status);
+        sendRequest(user);
+        return user;
     }
 
-    public RegData setNotValidPassword() {
-        RegData notValidPassword = new RegData(faker.name().username(), faker.internet().password().toLowerCase(), "active");
-        setUpAll(notValidPassword);
-        return notValidPassword;
-    }
+//    public static RegData setBlockedUser() {
+//        RegData blockedUser = new RegData(faker.name().username(), faker.internet().password(), "blocked");
+//        setUpAll(blockedUser);
+//        return blockedUser;
+//    }
+//
+//    public static RegData setEmptyUser() {
+//        RegData emptyUser = new RegData("", faker.internet().password(), "active");
+//        setUpAll(emptyUser);
+//        return emptyUser;
+//    }
+
+
+//    public RegData setNotValidLogin() {
+//        RegData notValidLogin = new RegData(faker.name().firstName().toLowerCase(), faker.internet().password(), "active");
+//        setUpAll(notValidLogin);
+//        return notValidLogin;
+//    }
+//
+//    public RegData setNotValidPassword() {
+//        RegData notValidPassword = new RegData(faker.name().username(), faker.internet().password().toLowerCase(), "active");
+//        setUpAll(notValidPassword);
+//        return notValidPassword;
+//    }
+
+
+
 
 }

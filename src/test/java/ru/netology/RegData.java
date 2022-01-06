@@ -2,9 +2,9 @@ package ru.netology;
 
 public class RegData {
 
-    String login;
-    String password;
-    String status;
+    static String login;
+    static String password;
+    static String status;
 
     public RegData(String login, String password, String status) {
         this.login = login;
