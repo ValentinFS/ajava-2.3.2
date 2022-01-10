@@ -5,6 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import lombok.Value;
 
 import java.util.Locale;
 
@@ -12,7 +13,7 @@ import static io.restassured.RestAssured.given;
 
 public class DataGenerator {
 
-    private static RequestSpecification requestSpec = new RequestSpecBuilder()
+    private static final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
             .setPort(9999)
             .setAccept(ContentType.JSON)
@@ -40,6 +41,21 @@ public class DataGenerator {
         return faker.internet().password().toLowerCase();
     }
 
+    public static String generateEmptyLogin() {
+        String login = "";
+        return login;
+    }
+
+    public static String generateEmptyPassword() {
+        String password = "";
+        return password;
+    }
+
+
+    public static RegData generateEmptyUser(String status) {
+        RegData user = new RegData(generateEmptyLogin(), generateEmptyPassword(), status);
+        return user;
+    }
 
     public static RegData generateUser(String status) {
         RegData user = new RegData(generateRandomLogin(), generateRandomPassword(), status);
@@ -72,7 +88,12 @@ public class DataGenerator {
 //        return notValidPassword;
 //    }
 
+    @Value
+    public static class RegData {
 
+        String login;
+        String password;
+        String status;
 
-
+    }
 }
